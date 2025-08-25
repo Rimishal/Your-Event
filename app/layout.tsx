@@ -50,24 +50,57 @@
 //     </html>
 //   );
 // }
+// import type { Metadata } from "next";
+// import { Poppins } from "next/font/google";
+// import "./globals.css";
+// import { ClerkProvider } from "@clerk/nextjs";
+// // import { ClerkProvider } from "@clerk/clerk-react";
+
+// const poppins = Poppins({
+//    subsets: ["latin"],
+//   weight: ['400','500','600','700'],
+//  variable:'--font-poppins',  });
+
+// export const metadata: Metadata = {
+//   title: "Your Event App",
+//   description: "Event management web application",
+//   icons:{
+//     icon:'/assets/images/logo.jpeg'
+
+//   }
+// };
+
+// export default function RootLayout({
+//   children,
+// }: {
+//   children: React.ReactNode;
+// }) {
+//   return (
+//   <ClerkProvider>
+//     <html lang="en" suppressHydrationWarning>
+//       <body className={poppins.variable}>{children}</body>
+//     </html>
+// </ClerkProvider>
+//   );
+// }
+
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-// import { ClerkProvider } from "@clerk/clerk-react";
 
 const poppins = Poppins({
-   subsets: ["latin"],
-  weight: ['400','500','600','700'],
- variable:'--font-poppins',  });
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
 
 export const metadata: Metadata = {
   title: "Your Event App",
   description: "Event management web application",
-  icons:{
-    icon:'/assets/images/logo.jpeg'
-
-  }
+  icons: {
+    icon: "/assets/images/logo.jpeg",
+  },
 };
 
 export default function RootLayout({
@@ -75,11 +108,26 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // ===== Temporary env-test snippet =====
+  if (typeof window !== "undefined" && new URLSearchParams(window.location.search).has("env-test")) {
+    console.log(
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:",
+      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+    );
+    alert(
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: " +
+        process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+    );
+  }
+  // ===== End of temporary snippet =====
+
   return (
-  <ClerkProvider>
-    <html lang="en" suppressHydrationWarning>
-      <body className={poppins.variable}>{children}</body>
-    </html>
-</ClerkProvider>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={poppins.variable}>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }
+
+
